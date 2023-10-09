@@ -55,4 +55,20 @@ public class PlayerMovements : MonoBehaviour
             isJumping = false;
         }
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            transform.parent = collision.transform;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Ground"))
+        {
+            transform.parent = null;
+        }
+    }
 }
