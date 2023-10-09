@@ -34,6 +34,12 @@ public class PlayerMovements : MonoBehaviour
         float moveH = Input.GetAxis("Horizontal") * speed;
         transform.Translate(new Vector2(moveH, 0));
 
+        /** --- Keep player in screen --------------------------------------*/
+        Vector3 minScreenBounds = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
+        Vector3 maxScreenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, minScreenBounds.x + 1, maxScreenBounds.x - 1), transform.position.y, transform.position.z);
+
         /** --- Rotate sprite ----------------------------------------------*/
         if (moveH < 0)
         {
