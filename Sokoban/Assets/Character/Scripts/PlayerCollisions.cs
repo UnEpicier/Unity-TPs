@@ -12,24 +12,40 @@ public class PlayerCollisions : MonoBehaviour
 
             if (Mathf.Abs(direction.x) >  Mathf.Abs(direction.y))
             {
+                // Left
                 if (direction.x > 0f)
                 {
-                    collision.transform.Translate(new Vector2(-0.64f, 0f));
+                    if (collision.gameObject.GetComponent<Box>().CanMoveInDirection("Left"))
+                    {
+                        collision.transform.Translate(new Vector2(-0.64f, 0f));
+                    }
                 }
+                // Right
                 else
                 {
-                    collision.transform.Translate(new Vector2(0.64f, 0f));
+                    if (collision.gameObject.GetComponent<Box>().CanMoveInDirection("Right"))
+                    {
+                        collision.transform.Translate(new Vector2(0.64f, 0f));
+                    }
                 }
             }
             else
             {
+                // Down
                 if (direction.y > 0f)
                 {
-                    collision.transform.Translate(new Vector2(0f, -0.64f));
+                    if (collision.gameObject.GetComponent<Box>().CanMoveInDirection("Down"))
+                    {
+                        collision.transform.Translate(new Vector2(0f, -0.64f));
+                    }
                 }
+                // Up
                 else
                 {
-                    collision.transform.Translate(new Vector2(0f, 0.64f));
+                    if (collision.gameObject.GetComponent<Box>().CanMoveInDirection("Up"))
+                    {
+                        collision.transform.Translate(new Vector2(0f, 0.64f));
+                    }
                 }
             }
         }
