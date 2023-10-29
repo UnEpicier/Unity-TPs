@@ -1,9 +1,38 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class Box : MonoBehaviour
 {
+    List<GameObject> endZones = new();
+
+    private void Start()
+    {
+        endZones.AddRange(GameObject.FindGameObjectsWithTag("EndZone"));
+    }
+
+    private void Update()
+    {
+        // Check if the moved box is on a endZone so it will change his brightness
+        bool isPlaced = false;
+        foreach (GameObject endZone in endZones)
+        {
+            if (endZone.transform.position == gameObject.transform.position)
+            {
+                isPlaced = true;
+                break;
+            }
+        }
+        if (isPlaced)
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
+        }
+        else
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        }
+    }
+
     public bool TryMoveInDirection(string direction)
     {
         if (direction == "Up")

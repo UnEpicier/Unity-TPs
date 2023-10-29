@@ -53,10 +53,9 @@ public class PlayerCollisions : MonoBehaviour
                 }
             }
 
-            // Now check if all boxes are in their EndZone and if so, end the game on a win!
-            GameObject[] boxes = GameObject.FindGameObjectsWithTag("Box");
+            // Check if all boxes are in their EndZone and if so, end the game on a win!
             GameObject[] endZones = GameObject.FindGameObjectsWithTag("EndZone");
-
+            GameObject[] boxes = GameObject.FindGameObjectsWithTag("Box");
             int boxesPlaced = 0;
             foreach (GameObject box in boxes)
             {
