@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -55,29 +57,31 @@ public class PlayerCollisions : MonoBehaviour
             GameObject[] boxes = GameObject.FindGameObjectsWithTag("Box");
             GameObject[] endZones = GameObject.FindGameObjectsWithTag("EndZone");
 
-            bool allPlaced = true;
+            int boxesPlaced = 0;
             foreach (GameObject box in boxes)
             {
-                bool placed = false;
                 foreach(GameObject endZone in endZones)
                 {
                     if (box.transform.position == endZone.transform.position)
                     {
-                        placed = true;
+                        boxesPlaced++;
+                        break;
                     }
                 }
-
-                if (placed == false)
-                {
-                    allPlaced = false;
-                    break;
-                }
             }
 
-            if (allPlaced)
+            ATH.SetText(boxesPlaced);
+
+            if (boxesPlaced == boxes.Length)
             {
-                SceneManager.LoadScene("End Screen", LoadSceneMode.Single);
+                StartCoroutine(DisplayEndScreen());
             }
         }
+    }
+
+    private IEnumerator DisplayEndScreen()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        SceneManager.LoadScene("End Screen", LoadSceneMode.Single);
     }
 }
