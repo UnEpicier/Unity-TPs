@@ -1,4 +1,6 @@
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class PlayerCollisions : MonoBehaviour
@@ -47,6 +49,34 @@ public class PlayerCollisions : MonoBehaviour
                         collision.transform.Translate(new Vector2(0f, 0.64f));
                     }
                 }
+            }
+
+            // Now check if all boxes are in their EndZone and if so, end the game on a win!
+            GameObject[] boxes = GameObject.FindGameObjectsWithTag("Box");
+            GameObject[] endZones = GameObject.FindGameObjectsWithTag("EndZone");
+
+            bool allPlaced = true;
+            foreach (GameObject box in boxes)
+            {
+                bool placed = false;
+                foreach(GameObject endZone in endZones)
+                {
+                    if (box.transform.position == endZone.transform.position)
+                    {
+                        placed = true;
+                    }
+                }
+
+                if (placed == false)
+                {
+                    allPlaced = false;
+                    break;
+                }
+            }
+
+            if (allPlaced)
+            {
+                SceneManager.LoadScene("End Screen", LoadSceneMode.Single);
             }
         }
     }

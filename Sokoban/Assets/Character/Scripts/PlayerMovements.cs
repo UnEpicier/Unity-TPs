@@ -7,6 +7,9 @@ public class PlayerMovements : MonoBehaviour
 
     private readonly float _walkSpeed = 2f;
 
+    [SerializeField]
+    private GameObject _pauseMenu;
+
     private void Start()
     {
         _sr = GetComponent<SpriteRenderer>();
@@ -29,5 +32,12 @@ public class PlayerMovements : MonoBehaviour
 
         transform.Translate(new Vector2(moveH, moveV));
         _animator.SetFloat("Speed", Mathf.Max(Mathf.Abs(moveH), Mathf.Abs(moveV)));
+
+        // Display pause menu on demand
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Time.timeScale = 0f;
+            _pauseMenu.SetActive(true);
+        }
     }
 }
