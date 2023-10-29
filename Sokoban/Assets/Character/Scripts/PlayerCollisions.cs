@@ -15,7 +15,7 @@ public class PlayerCollisions : MonoBehaviour
                 // Left
                 if (direction.x > 0f)
                 {
-                    if (collision.gameObject.GetComponent<Box>().CanMoveInDirection("Left"))
+                    if (collision.gameObject.GetComponent<Box>().TryMoveInDirection("Left"))
                     {
                         collision.transform.Translate(new Vector2(-0.64f, 0f));
                     }
@@ -23,7 +23,7 @@ public class PlayerCollisions : MonoBehaviour
                 // Right
                 else
                 {
-                    if (collision.gameObject.GetComponent<Box>().CanMoveInDirection("Right"))
+                    if (collision.gameObject.GetComponent<Box>().TryMoveInDirection("Right"))
                     {
                         collision.transform.Translate(new Vector2(0.64f, 0f));
                     }
@@ -34,7 +34,7 @@ public class PlayerCollisions : MonoBehaviour
                 // Down
                 if (direction.y > 0f)
                 {
-                    if (collision.gameObject.GetComponent<Box>().CanMoveInDirection("Down"))
+                    if (collision.gameObject.GetComponent<Box>().TryMoveInDirection("Down"))
                     {
                         collision.transform.Translate(new Vector2(0f, -0.64f));
                     }
@@ -42,7 +42,7 @@ public class PlayerCollisions : MonoBehaviour
                 // Up
                 else
                 {
-                    if (collision.gameObject.GetComponent<Box>().CanMoveInDirection("Up"))
+                    if (collision.gameObject.GetComponent<Box>().TryMoveInDirection("Up"))
                     {
                         collision.transform.Translate(new Vector2(0f, 0.64f));
                     }

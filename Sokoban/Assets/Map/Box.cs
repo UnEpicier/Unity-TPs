@@ -1,45 +1,48 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Box : MonoBehaviour
 {
-    public bool CanMoveInDirection(string direction)
+    public bool TryMoveInDirection(string direction)
     {
-        List<GameObject> wallsAndBoxes = new(GameObject.FindGameObjectsWithTag("Box"));
-        wallsAndBoxes.AddRange(GameObject.FindGameObjectsWithTag("Wall"));
+        if (direction == "Up")
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0f, 0.34f, 0f), Vector2.up, 0.1f);
 
-        // Left
-        if (direction == "Left")
-        {
-            foreach (GameObject obj in wallsAndBoxes)
+            if (hit.collider != null && (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Box")))
             {
-                if (obj.transform.position.x == transform.position.x - 0.64f && obj.transform.position.y == transform.position.y) return false;
+                return false;
             }
         }
-        // Right
-        else if (direction == "Right")
-        {
-            foreach (GameObject obj in wallsAndBoxes)
-            {
-                if (obj.transform.position.x == transform.position.x + 0.64f && obj.transform.position.y == transform.position.y) return false;
-            }
-        }
-        // Down
         else if (direction == "Down")
         {
-            foreach (GameObject obj in wallsAndBoxes)
+            RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0f, -0.34f, 0f), Vector2.down, 0.1f);
+
+            if (hit.collider != null && (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Box")))
             {
-                if (obj.transform.position.x == transform.position.x - 0.64f && obj.transform.position.x == transform.position.x) return false;
+                return false;
             }
         }
-        // Up
-        else if  (direction == "Up")
+        else if (direction == "Right")
         {
-            foreach (GameObject obj in wallsAndBoxes)
+            RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0.34f, 0f, 0f), Vector2.right, 0.1f);
+
+            if (hit.collider != null && (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Box")))
             {
-                if (obj.transform.position.y == transform.position.y + 0.64f && obj.transform.position.x == transform.position.x) return false;
+                return false;
             }
         }
+        else if (direction == "Left")
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(-0.34f, 0f, 0f), Vector2.left, 0.1f);
+
+            if (hit.collider != null && (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Box")))
+            {
+                return false;
+            }
+        }
+
         return true;
     }
 }
