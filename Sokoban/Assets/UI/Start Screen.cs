@@ -8,11 +8,6 @@ public class StartScreen : MonoBehaviour
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 
-    public void DisplayOptions()
-    {
-        SceneManager.LoadScene("Options Screen", LoadSceneMode.Single);
-    }
-
     public void QuitGame()
     {
         Application.Quit();
